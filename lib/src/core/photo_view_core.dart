@@ -144,8 +144,14 @@ class PhotoViewCoreState extends State<PhotoViewCore>
   }
 
   void onScaleUpdate(ScaleUpdateDetails details) {
+    
     final double newScale = _scaleBefore! * details.scale;
     final Offset delta = details.focalPoint - _normalizedPosition!;
+
+    final double minScale = scaleBoundaries.minScale;
+    if(newScale < minScale){
+      return;
+    }
 
     updateScaleStateFromNewScale(newScale);
 
